@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
-using IP2Email.Classes;
+﻿using IP2Email.Classes;
+using IP2Email.Helpers;
 using IP2Email.Interfaces;
+using System.Collections.Generic;
 
 namespace IP2Email.Actions
 {
-    class ShowHelp : IArgsAction
+    internal class ShowHelp : IArgsAction
     {
         public void Do(string internetIP, List<string> localIPs, ref AppExitCodes appExitCode, AppConfig appConfig)
         {
-            throw new System.NotImplementedException();
+            ConsoleHelper.ShowAppBanner();
+            ConsoleHelper.ShowHelp();
         }
     }
 }

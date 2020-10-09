@@ -17,9 +17,6 @@ namespace ip2email
     internal class IP2Email
     {
         internal AppExitCodes ExitCode = AppExitCodes.Success;
-        internal string InternetIP { get; private set; }
-        internal List<string> LocalIP { get; private set; }
-        internal AppConfig Configuration { get; private set; }
 
         public IP2Email()
         {
@@ -31,55 +28,16 @@ namespace ip2email
 
         public IP2Email(string[] args) : this()
         {
-            ArgsActionWrapper(ParseArgs(args));            
+            ArgsActionWrapper(ParseArgs(args));
         }
+
+        internal AppConfig Configuration { get; private set; }
+        internal string InternetIP { get; private set; }
+        internal List<string> LocalIP { get; private set; }
 
         private void ArgsActionWrapper(IArgsAction action)
         {
             action.Do(InternetIP, LocalIP, ref ExitCode, Configuration);
-        }
-
-        private IArgsAction ParseArgs(string[] args)
-        {
-            if (args.Length == 0)
-                return new ShowAllIPs();
-
-            else if (args[0].ToUpper() == ArgsHelper.CONFIG)
-                return new ConfigApp();
-
-            else if (args[0].ToUpper() == ArgsHelper.SEND)
-                return new SendMail();
-
-            else
-            {
-                return new ShowHelp();
-            }            
-        }
-
-        private List<string> GetLocalIP()
-        {
-            try
-            {
-                List<string> result = new List<string>();
-
-                List<UnicastIPAddressInformationCollection> ipInfo = NetworkInterface.GetAllNetworkInterfaces()
-                                                                                     .Select(ipinfo => ipinfo.GetIPProperties().UnicastAddresses)
-                                                                                     .ToList();
-
-                ipInfo.SelectMany(ipinfo => ipinfo.Select(ip => ip.Address))
-                       .Where(ip => ip.AddressFamily == AddressFamily.InterNetwork)
-                       .OrderByDescending(ip => ip.Address)                       
-                       .ToList()
-                       .ForEach(ip => result.Add(ip.ToString()));
-
-                return result;
-            }
-
-            catch (Exception)
-            {
-                ExitCode = AppExitCodes.LocalIpException;
-                return new List<string> { TextHelper.FailedGetLocalIP };
-            }
         }
 
         private string GetInternetIP()
@@ -97,6 +55,53 @@ namespace ip2email
             {
                 ExitCode = AppExitCodes.InternetIpException;
                 return TextHelper.FailedGetInternetIP;
+            }
+        }
+
+        private List<string> GetLocalIP()
+        {
+            try
+            {
+                List<string> result = new List<string>();
+
+                List<UnicastIPAddressInformationCollection> ipInfo = NetworkInterface.GetAllNetworkInterfaces()
+                                                                                     .Select(ipinfo => ipinfo.GetIPProperties().UnicastAddresses)
+                                                                                     .ToList();
+
+                ipInfo.SelectMany(ipinfo => ipinfo.Select(ip => ip.Address))
+                       .Where(ip => ip.AddressFamily == AddressFamily.InterNetwork)
+                       .OrderByDescending(ip => ip.Address)
+                       .ToList()
+                       .ForEach(ip => result.Add(ip.ToString()));
+
+                return result;
+            }
+            catch (Exception)
+            {
+                ExitCode = AppExitCodes.LocalIpException;
+                return new List<string> { TextHelper.FailedGetLocalIP };
+            }
+        }
+
+        private IArgsAction ParseArgs(string[] args)
+        {            
+            string arg = args.Length > 0 ? args[0].ToUpper() : string.Empty;
+
+            if (string.IsNullOrEmpty(arg))
+            {
+                return new ShowAllIPs();
+            }
+            else if (arg == ArgsHelper.CONFIG)
+            {
+                return new ConfigApp();
+            }
+            else if (arg == ArgsHelper.SEND)
+            {
+                return new SendMail();
+            }
+            else
+            {
+                return new ShowHelp();
             }
         }
     }

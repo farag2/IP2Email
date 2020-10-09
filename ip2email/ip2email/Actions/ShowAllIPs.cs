@@ -9,7 +9,7 @@ namespace IP2Email.Classes
         public void Do(string internetIP, List<string> localIPs, ref AppExitCodes appExitCode, AppConfig appConfig)
         {
             ConsoleHelper.ShowAppBanner();
-            ConsoleHelper.ShowIPs(internetIP, localIPs);            
+            ConsoleHelper.ShowIPs(internetIP, localIPs);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace IP2Email.Helpers
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362",
           "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko",
           "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"};
+
         public static HttpWebRequest GetWebRequest(string internetSite)
         {
             HttpWebRequest webRequest = WebRequest.Create(internetSite) as HttpWebRequest;

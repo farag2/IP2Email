@@ -21,7 +21,6 @@ namespace IP2Email.Actions
                 ConsoleHelper.EmailSettingsSave(true);
                 appConfig.IsConfigured = true;
             }
-
             catch
             {
                 ConsoleHelper.EmailSettingsSave(false);

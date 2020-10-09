@@ -6,7 +6,7 @@
         LocalIpException = 10,
         InternetIpException = 20,
         SaveSettingsException = 30,
-        SetMailDataException = 40,        
+        SetMailDataException = 40,
         EmailSendException = 50
     }
 }

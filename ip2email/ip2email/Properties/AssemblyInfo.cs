@@ -1,16 +1,15 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("IP2Email")]
-[assembly: AssemblyDescription("IP2Email")]
+[assembly: AssemblyTitle("IP2Email — Send Your Public IP Address via email")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("https://github.com/oz-zo/ip2email/releases")]
-[assembly: AssemblyProduct("IP2Email")]
-[assembly: AssemblyCopyright("Copyright © oZ-Zo 2020")]
+[assembly: AssemblyProduct("")]
+[assembly: AssemblyCopyright("Copyright © 2020 oZ-Zo")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

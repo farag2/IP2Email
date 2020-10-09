@@ -7,35 +7,34 @@ using System.Net.Mail;
 
 namespace IP2Email.Classes
 {
-    class SendMail : IArgsAction
+    internal class SendMail : IArgsAction
     {
         public void Do(string internetIP, List<string> localIPs, ref AppExitCodes appExitCode, AppConfig appConfig)
         {
-            ConsoleHelper.ShowAppBanner();            
+            ConsoleHelper.ShowAppBanner();
 
             if (appConfig.IsConfigured)
             {
                 try
                 {
-                    SendByEmail(appConfig, internetIP);                    
+                    SendByEmail(appConfig, internetIP);
                     ConsoleHelper.EmailSend(senderEmail: appConfig.SenderEmail, recipientEmail: appConfig.RecipientEmail);
                 }
                 catch (Exception ex)
                 {
-                    ConsoleHelper.EmailSendException(exception: ex, senderEmail: appConfig.SenderEmail, recipientEmail: appConfig.RecipientEmail);                    
+                    ConsoleHelper.EmailSendException(exception: ex, senderEmail: appConfig.SenderEmail, recipientEmail: appConfig.RecipientEmail);
                     appExitCode = AppExitCodes.EmailSendException;
                 }
             }
-
             else
             {
-                ConsoleHelper.NotSetMailData();                
+                ConsoleHelper.NotSetMailData();
                 appExitCode = AppExitCodes.SetMailDataException;
-            }                     
+            }
         }
 
         private void SendByEmail(AppConfig config, string ip)
-        {            
+        {
             MailMessage message = new MailMessage(from: new MailAddress(config.SenderEmail, TextHelper.SenderDisplayName),
                                                     to: new MailAddress(config.RecipientEmail))
             {
@@ -47,8 +46,9 @@ namespace IP2Email.Classes
             SmtpClient smtp = new SmtpClient(config.EmailServer, Convert.ToInt16(config.EmailServerPort))
             {
                 Credentials = new NetworkCredential(config.SenderEmail, config.SenderPassword),
-                EnableSsl = true                
-            };            
+                EnableSsl = true
+            };
+
             smtp.Send(message);
         }
     }
