@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("IP2Email — Send Your Public IP Address via email")]
+[assembly: AssemblyTitle("IP2Email sends an email with your public IP address got by https://ifconfig.me")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("https://github.com/oz-zo/ip2email/releases")]

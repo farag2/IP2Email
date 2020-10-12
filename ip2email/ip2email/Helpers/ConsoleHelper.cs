@@ -44,15 +44,14 @@ namespace IP2Email.Helpers
         internal static void ShowAppBanner()
         {
             Console.WriteLine();
-            Console.WriteLine("IP2Email — Send Your Public IP Address via email.");
+            Console.WriteLine("IP2Email sends an email with your public IP address got by https://ifconfig.me");
             Console.WriteLine("Copyright © 2020 oZ-Zo.");
             Console.WriteLine("https://github.com/oz-zo/ip2email");
             Console.WriteLine();
         }
 
         internal static void ShowHelp()
-        {
-            Console.WriteLine("IP2Email sends an email with your public IP address got by https://ipconfig.me");
+        {            
             Console.WriteLine("Usage: IP2Email [-config] | [-send]");
             Console.WriteLine();
             Console.WriteLine("-config   Configure and temporary save email recipient & sender settings.");
@@ -63,7 +62,7 @@ namespace IP2Email.Helpers
 
         internal static void ShowIPs(string internetIP, List<string> localIPs)
         {
-            Console.WriteLine($"Internet IP . . . . : {internetIP}");
+            Console.WriteLine($"Public IP . . . . . : {internetIP}");
             localIPs.ForEach(ip => Console.WriteLine($"Local IP. . . . . . : {ip}"));
             Console.WriteLine();            
         }
