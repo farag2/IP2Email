@@ -9,15 +9,16 @@ IP2Email sends an email with your public IP address got by <https://ifconfig.me>
 
 ## Screenshots
 
-<div>
 <details>
   <summary>Screenshots</summary>
-  <img src="https://github.com/oz-zo/scrn/raw/main/screenshots/ip2email-view.png" alt="Show IP screen">
-  <img src="https://github.com/oz-zo/scrn/raw/main/screenshots/ip2email-config.png" alt="Configuration screen">
-  <img src="https://github.com/oz-zo/scrn/raw/main/screenshots/ip2email-send.png" alt="Email send screen">
-  <img src="https://github.com/oz-zo/scrn/raw/main/screenshots/ip2email-help.png" alt="Help screen">
+
+![Image](https://github.com/oz-zo/scrn/raw/main/screenshots/ip2email-view.png)
+![Image](https://github.com/oz-zo/scrn/raw/main/screenshots/ip2email-config.png)
+![Image](https://github.com/oz-zo/scrn/raw/main/screenshots/ip2email-send.png)
+![Image](https://github.com/oz-zo/scrn/raw/main/screenshots/ip2email-help.png)
+
+![Image](https://i.imgur.com/DpV0UJw.png)
 </details>
-</div>
 
 ## Usage options
 
@@ -35,14 +36,15 @@ Usage: IP2Email [-config] | [-send]
 -send
 ```
 
-#### WARNING: DO NOT ENTER YOUR CURRENT EMAIL'S LOGIN AND PASSWORD! IT'S NOT SAFE! 
-#### CREATE NEW EMAIL ACCOUNT WITH A STRONG AND RANDOM PASSWORD.
+## WARNING: DO NOT ENTER YOUR CURRENT EMAIL'S LOGIN AND PASSWORD! IT'S NOT SAFE
 
-## Return codes:
+## CREATE NEW EMAIL ACCOUNT WITH A STRONG AND RANDOM PASSWORD
 
-- 0 All actions completed successfully.
-- 10 An exception occurred while getting the local IP address.
-- 20 An exception occurred while getting the external IP address.
-- 30 An exception occurred while saving email settings.
-- 40 No details for email sending provided.
-- 50 An exception occurred while sending email.
+## Return codes
+
+* 0 All actions completed successfully
+* 10 An exception occurred while getting the local IP address
+*20 An exception occurred while getting the external IP address
+* 30 An exception occurred while saving email settings
+* 40 No details for email sending provided
+* 50 An exception occurred while sending email
