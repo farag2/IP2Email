@@ -15,7 +15,7 @@ jobs:
 
     env:
       Solution_Name: IP2Email
-      Solution_Zip: ip2email/IP2Email.zip
+      Solution_Zip: ip2email\IP2Email.zip
       Wap_Project_Directory: ip2email
       Wap_Project_Path: ip2email\ip2email.sln
       Wap_Release_Directory: ip2email\ip2email\bin\release
@@ -53,7 +53,10 @@ jobs:
     - name: Compress the build
       run: |        
         $Build_Directory = Rename-Item -Path $env:Wap_Release_Directory -NewName $env:Solution_Name -PassThru | Select-Object -ExpandProperty FullName          
-        Compress-Archive -Path $Build_Directory -DestinationPath $env:Solution_Zip
+        Compress-Archive -Path $Build_Directory -DestinationPath $env:Solution_Zip -Verbose
+        Write-Host ********** BUILD DIR **************************
+        Get-ChildItem -Path $env:Wap_Project_Directory
+        Write-Host ********** BUILD DIR **************************
           
     - name: Upload archives to release      
       uses: svenstaro/upload-release-action@master
