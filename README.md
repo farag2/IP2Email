@@ -22,7 +22,7 @@ IP2Email sends an email with your public IP address got by <https://ifconfig.me>
 
 ## Usage options
 
-Usage: IP2Email [-config] | [-send]
+Usage: `IP2Email [-config] | [-send]`
 
 * Configure and temporary save email recipient & sender settings option
 
