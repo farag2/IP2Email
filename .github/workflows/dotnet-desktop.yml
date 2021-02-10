@@ -18,10 +18,9 @@ jobs:
       Solution_Zip: ip2email\IP2Email.zip
       Wap_Project_Directory: ip2email
       Wap_Project_Path: ip2email\ip2email.sln
-      Wap_Release_Directory: ip2email\ip2email\bin\release
-      Encryption_Key: ${{ secrets.ENCRYPTIONKEY }}
+      Wap_Release_Directory: ip2email\ip2email\bin\release      
 
-    steps:
+    steps:    
     - name: Checkout
       uses: actions/checkout@v2
       with:
@@ -31,6 +30,9 @@ jobs:
       uses: microsoft/setup-msbuild@v1
       
     - name: Encryption key injection
+      env: 
+        Encryption_Key: ${{ secrets.ENCRYPTIONKEY }}
+
       run: |
         $OriginalString = '        internal static readonly string SecurityKey = "";'
         $ModifyString = '        internal static readonly string SecurityKey = "{0}";'-f $env:Encryption_Key
