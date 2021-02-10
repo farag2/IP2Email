@@ -44,7 +44,7 @@ Usage: IP2Email [-config] | [-send]
 
 * 0 All actions completed successfully
 * 10 An exception occurred while getting the local IP address
-*20 An exception occurred while getting the external IP address
+* 20 An exception occurred while getting the external IP address
 * 30 An exception occurred while saving email settings
 * 40 No details for email sending provided
 * 50 An exception occurred while sending email
