@@ -28,21 +28,21 @@ jobs:
     
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1
-      
+
+    - name: SecretHub
+      uses: secrethub/actions@v0.2.1
+
     - name: Encryption key injection
       env: 
         Encryption_Key: ${{ secrets.SuperSecret }}
 
       run: |
-        $OriginalString = '        internal static readonly string SecurityKey = "";'
-        $ModifyString = "        internal static readonly string SecurityKey = `"$env:SuperSecret`";"
+        $OriginalString = 'SecurityKey = ""'
+        $ModifyString = "SecurityKey = `"$env:SuperSecret`""
         $HelperPath = "ip2email\ip2email\Helpers\TextHelper.cs"
-        $CodeFile = Get-Content -Path $HelperPath -Encoding UTF8
+        $CodeFile = Get-Content -Path $HelperPath -Encoding UTF8 -Raw
         Set-Content -Path $HelperPath -Value ($CodeFile.Replace($OriginalString, $ModifyString)) -Encoding UTF8 -Force
 
-        Get-Content -Path $HelperPath
-        $SuperSecret
-    
     - name: Build the app
       run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:platform=$env:Platform
             
