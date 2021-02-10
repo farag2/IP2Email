@@ -37,6 +37,15 @@ jobs:
         $HelperPath = "ip2email\ip2email\Helpers\TextHelper.cs"
         $CodeFile = Get-Content -Path $HelperPath -Encoding UTF8
         $CodeFile.Replace($OriginalString, $ModifyString) | Out-File -FilePath $HelperPath -Confirm:$false -Force:$true -Encoding UTF8
+        
+        Write-Host ********** Folder Content **************************
+        Get-ChildItem -Path $HelperPath -Verbose
+        Write-Host ********** Folder Content **************************
+        
+        Write-Host ********** File Exist **************************
+        Test-Path -Path $HelperPath -Verbose
+        Write-Host ********** File Exist **************************
+        
         Write-Host ********** File Content **************************
         Get-Content -Path $HelperPath
         Write-Host ********** File Content **************************
