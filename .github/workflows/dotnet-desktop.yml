@@ -38,15 +38,7 @@ jobs:
         $ModifyString = '        internal static readonly string SecurityKey = "{0}";'-f $env:Encryption_Key
         $HelperPath = "ip2email\ip2email\Helpers\TextHelper.cs"
         $CodeFile = Get-Content -Path $HelperPath -Encoding UTF8
-        $CodeFile.Replace($OriginalString, $ModifyString) | Out-File -FilePath $HelperPath -Confirm:$false -Force:$true -Encoding UTF8
-        
-        Write-Host ********** Key **************************
-        $env:Encryption_Key
-        Write-Host ********** Key **************************
-        
-        Write-Host ********** Secret **************************
-        ${{ secrets.ENCRYPTIONKEY }}
-        Write-Host ********** Secret **************************
+        $CodeFile.Replace($OriginalString, $ModifyString) | Out-File -FilePath $HelperPath -Confirm:$false -Force:$true -Encoding UTF8       
         
         Write-Host ********** Folder Content **************************
         Get-ChildItem -Path $HelperPath -Verbose
