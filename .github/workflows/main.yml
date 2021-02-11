@@ -18,7 +18,7 @@ jobs:
       Solution_Zip: ip2email\IP2Email.zip
       Wap_Project_Directory: ip2email
       Wap_Project_Path: ip2email\ip2email.sln
-      Wap_Release_Directory: ip2email\ip2email\bin\release      
+      Wap_Release_Directory: ip2email\ip2email\bin\release
 
     steps:    
     - name: Checkout
@@ -28,36 +28,38 @@ jobs:
     
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1
-      
+
     - name: Encryption key injection
+
       run: |
-        $OriginalString = '        internal static readonly string SecurityKey = "";'
-        $ModifyString = '        internal static readonly string SecurityKey = "${{ secrets.ENCRYPTIONKEY }}";'
+        $StringBuilder = New-Object -TypeName System.Text.StringBuilder
+        [System.Security.Cryptography.HashAlgorithm]::Create("MD5").ComputeHash([System.Text.Encoding]::UTF8.GetBytes("${{ secrets.SuperSecret }}"))| ForEach-Object -Process {[void]$StringBuilder.Append($_.ToString("x2"))}
+        $StringBuilder.ToString()
+
+        $OriginalString = 'SecurityKey = ""'
+        $ModifyString = "SecurityKey = `"${{ secrets.SuperSecret }}`""
         $HelperPath = "ip2email\ip2email\Helpers\TextHelper.cs"
-        $CodeFile = Get-Content -Path $HelperPath -Encoding UTF8
-        $CodeFile.Replace($OriginalString, $ModifyString) | Out-File -FilePath $HelperPath -Confirm:$false -Force:$true -Encoding UTF8
-    
+        $CodeFile = Get-Content -Path $HelperPath -Encoding UTF8 -Raw
+        Set-Content -Path $HelperPath -Value ($CodeFile.Replace($OriginalString, $ModifyString)) -Encoding UTF8 -Force
+
     - name: Build the app
       run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:platform=$env:Platform
             
       env:
-        Platform: ${{ matrix.platform }}        
+        Platform: ${{ matrix.platform }}
         Configuration: ${{ matrix.configuration }}
         
     - name: Cleanup the build
       run: | 
-        Get-ChildItem -Path $env:Wap_Release_Directory -Exclude "*.exe" | Remove-Item -Force -Confirm:$false
-        Copy-Item -Path README.md -Destination $env:Wap_Release_Directory -Confirm:$false -Force
+        Get-ChildItem -Path $env:Wap_Release_Directory -Exclude "*.exe" | Remove-Item -Force
+        Copy-Item -Path README.md -Destination $env:Wap_Release_Directory -Force
       
     - name: Compress the build
       run: |        
-        $Build_Directory = Rename-Item -Path $env:Wap_Release_Directory -NewName $env:Solution_Name -PassThru | Select-Object -ExpandProperty FullName          
+        $Build_Directory = Rename-Item -Path $env:Wap_Release_Directory -NewName $env:Solution_Name -PassThru | Select-Object -ExpandProperty FullName
         Compress-Archive -Path $Build_Directory -DestinationPath $env:Solution_Zip -Verbose
-        Write-Host ********** BUILD DIR **************************
-        Get-ChildItem -Path $env:Wap_Project_Directory
-        Write-Host ********** BUILD DIR **************************
-          
-    - name: Upload archives to release      
+
+    - name: Upload archives to release
       uses: svenstaro/upload-release-action@master
       with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
