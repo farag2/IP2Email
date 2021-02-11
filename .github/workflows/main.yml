@@ -34,8 +34,8 @@ jobs:
         Encryption_Key: ${{ secrets.SuperSecret }}
 
       run: |
-        $OriginalString = 'SecurityKey = ""'
-        $ModifyString = "SecurityKey = `"${{ secrets.SuperSecret }}`""
+        $OriginalString = '        internal static readonly string SecurityKey = "";'
+        $ModifyString = '        internal static readonly string SecurityKey = "${{ secrets.SuperSecret }}";'
         $HelperPath = "ip2email\ip2email\Helpers\TextHelper.cs"
         $CodeFile = Get-Content -Path $HelperPath -Encoding UTF8 -Raw
         Set-Content -Path $HelperPath -Value ($CodeFile.Replace($OriginalString, $ModifyString)) -Encoding UTF8 -Force
