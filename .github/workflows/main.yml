@@ -36,6 +36,8 @@ jobs:
         [System.Security.Cryptography.HashAlgorithm]::Create("MD5").ComputeHash([System.Text.Encoding]::UTF8.GetBytes("${{ secrets.SuperSecret }}"))| ForEach-Object -Process {[void]$StringBuilder.Append($_.ToString("x2"))}
         $StringBuilder.ToString()
 
+        (Get-FileHash -Path "ip2email\ip2email\Helpers\TextHelper.cs" -Algorithm MD5).Hash
+
         $OriginalString = 'SecurityKey = ""'
         $ModifyString = "SecurityKey = `"${{ secrets.SuperSecret }}`""
         $HelperPath = "ip2email\ip2email\Helpers\TextHelper.cs"
