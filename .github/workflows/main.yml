@@ -41,8 +41,8 @@ jobs:
         $OriginalString = 'SecurityKey = ""'
         $ModifyString = "SecurityKey = `"${{ secrets.SuperSecret }}`""
         $HelperPath = "ip2email\ip2email\Helpers\TextHelper.cs"
-        $CodeFile = Get-Content -Path $HelperPath -Encoding UTF8 -Raw
-        Set-Content -Path $HelperPath -Value ($CodeFile.Replace($OriginalString, $ModifyString)) -Encoding UTF8 -Force
+        $CodeFile = Get-Content -Path $HelperPath -Encoding utf8BOM -Raw
+        Set-Content -Path $HelperPath -Value ($CodeFile.Replace($OriginalString, $ModifyString)) -Encoding utf8BOM -Force
 
     - name: Build the app
       run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:platform=$env:Platform
