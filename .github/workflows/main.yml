@@ -34,8 +34,11 @@ jobs:
         Encryption_Key: ${{ secrets.SuperSecret }}
 
       run: |
+        Set-Content -Path Key.txt -Value "${{ secrets.SuperSecret }}" -Encoding UTF8 -Force
+        $Key = Get-Content -Path Key.txt -Force
+
         $OriginalString = 'SecurityKey = ""'
-        $ModifyString = "SecurityKey = `"$env:SuperSecret`""
+        $ModifyString = "SecurityKey = `"$Key`""
         $HelperPath = "ip2email\ip2email\Helpers\TextHelper.cs"
         $CodeFile = Get-Content -Path $HelperPath -Encoding UTF8 -Raw
         Set-Content -Path $HelperPath -Value ($CodeFile.Replace($OriginalString, $ModifyString)) -Encoding UTF8 -Force
