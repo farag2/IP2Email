@@ -2,7 +2,7 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/oz-zo/IP2Email/total?color=%230f80c0&style=for-the-badge)
 ![GitHub Repo stars](https://img.shields.io/github/stars/oz-zo/IP2Email?style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/oz-zo/IP2Email/Build?style=for-the-badge)
+![Build and Release](https://github.com/oz-zo/IP2Email/workflows/Build%20and%20Release/badge.svg)
 ![GitHub](https://img.shields.io/github/license/oz-zo/IP2Email?style=for-the-badge)
 
 IP2Email sends an email with your public IP address got by <https://ifconfig.me>
